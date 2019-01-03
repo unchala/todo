@@ -24,6 +24,17 @@ class HomeController extends Controller
         return view('create',$datacate);
     }
 
+    public function store(){
+//        return $_POST['name'];
+//        return request()->all();
+        //การ insert ข้อมูลลงในฐานข้อมูล
+        $product = new Product();
+        $product->product_name = request()->product_name;
+        $product->category_id = request()->category_id;
+        $product->save();
+        return redirect('/');
+    }
+
     public function edit($product_id){
         //หน้า edit ข้อมูลในฐานข้อมูล
         $categories = Category::all();
@@ -33,7 +44,6 @@ class HomeController extends Controller
             "items" => $categories,
             "product" => $product
         ];
-
         return view('edit',$data);
     }
 
@@ -46,16 +56,7 @@ class HomeController extends Controller
         $product->save();
         return redirect('/');
     }
-    public function store(){
-//        return $_POST['name'];
-//        return request()->all();
-        //การ insert ข้อมูลลงในฐานข้อมูล
-        $product = new Product();
-        $product->product_name = \request()->product_name;
-        $product->category_id = \request()->category_id;
-        $product->save();
-        return redirect('/');
-    }
+
     public function login(){
         return view('login');
     }
